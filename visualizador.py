@@ -15,15 +15,13 @@ class CalculusIVVisualizer:
         self.root.title("Calc4Visualgo")
         self.root.geometry("1000x800")
         
-        # Configuração do estilo
+        
         self.style = ttk.Style()
         self.style.configure('TFrame', padding=10)
         self.style.configure('TButton', padding=5)
         self.style.configure('Title.TLabel', font=('Arial', 16, 'bold'))
         self.style.configure('Subtitle.TLabel', font=('Arial', 12))
         self.style.configure('Names.TLabel', font=('Arial', 10))
-        
-        # Carrega o logo da universidade (no mesmo diretório do script)
         self.logo_image = self.load_image("", (300, 150))
         
         self.setup_main_menu()
@@ -45,8 +43,7 @@ class CalculusIVVisualizer:
         
         main_frame = ttk.Frame(self.root)
         main_frame.pack(expand=True, fill=tk.BOTH, padx=20, pady=20)
-        
-        # Cabeçalho com logo e título
+  
         header_frame = ttk.Frame(main_frame)
         header_frame.pack(fill=tk.X, pady=10)
         
@@ -69,7 +66,7 @@ class CalculusIVVisualizer:
             style='Subtitle.TLabel'
         ).pack()
         
-        # Autores
+       
         authors_frame = ttk.Frame(title_frame)
         authors_frame.pack(pady=10)
         
@@ -90,8 +87,7 @@ class CalculusIVVisualizer:
             text="Universidade Técnológica Federal do Paraná - Campus Toledo - Curso de Graduação em Engenharia de Computação",
             style='Names.TLabel'
         ).pack(pady=10)
-        
-        # Botões de tópicos
+  
         topics_frame = ttk.Frame(main_frame)
         topics_frame.pack(pady=20)
         
@@ -110,8 +106,7 @@ class CalculusIVVisualizer:
                 command=lambda t=topic: self.show_topic_interface(t)
             )
             btn.pack(pady=5)
-        
-        # Rodapé
+
         footer_frame = ttk.Frame(main_frame)
         footer_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=20)
         
@@ -201,15 +196,15 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         """Carrega a interface do tópico selecionado."""
         self.clear_frame()
         
-        # Frame principal
+
         main_frame = ttk.Frame(self.root)
         main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-        
-        # Frame de controles
+ 
+      
         control_frame = ttk.Frame(main_frame)
         control_frame.pack(side=tk.TOP, fill=tk.X, pady=10)
         
-        # Botão de voltar
+       
         back_btn = ttk.Button(
             control_frame, 
             text="← Voltar ao Menu", 
@@ -229,11 +224,11 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
     
     def setup_fourier_series(self, control_frame, main_frame):
         """Interface para Séries de Fourier."""
-        # Controles adicionais
+
         settings_frame = ttk.Frame(control_frame)
         settings_frame.pack(side=tk.LEFT, padx=10)
         
-        # Tipo de onda
+
         ttk.Label(settings_frame, text="Tipo de Onda:").grid(row=0, column=0, sticky=tk.W)
         self.wave_type = ttk.Combobox(
             settings_frame, 
@@ -242,8 +237,7 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         self.wave_type.current(0)
         self.wave_type.grid(row=0, column=1, padx=5, pady=2)
-        
-        # Número de termos
+
         ttk.Label(settings_frame, text="Nº de Termos:").grid(row=1, column=0, sticky=tk.W)
         self.n_terms = tk.IntVar(value=5)
         terms_slider = ttk.Scale(
@@ -255,7 +249,7 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         terms_slider.grid(row=1, column=1, padx=5, pady=2)
         
-        # Checkbox para harmônicos individuais
+
         self.show_individual = tk.BooleanVar(value=False)
         individual_check = ttk.Checkbutton(
             settings_frame, 
@@ -264,7 +258,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         individual_check.grid(row=2, columnspan=2, pady=5)
         
-        # Botão de plotar
         plot_btn = ttk.Button(
             control_frame, 
             text="Plotar", 
@@ -272,12 +265,12 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         plot_btn.pack(side=tk.RIGHT, padx=5)
         
-        # Gráfico
+
         self.fig, self.ax = plt.subplots(figsize=(8, 5))
         self.canvas = FigureCanvasTkAgg(self.fig, master=main_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
         
-        # Plot inicial
+    
         self.plot_fourier_series()
     
     def plot_fourier_series(self):
@@ -331,22 +324,20 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
     
     def setup_fourier_transform(self, control_frame, main_frame):
         """Interface para Transformada de Fourier."""
-        # Controles adicionais
+        
         settings_frame = ttk.Frame(control_frame)
         settings_frame.pack(side=tk.LEFT, padx=10)
-        
-        # Entrada do sinal
+
         ttk.Label(settings_frame, text="Expressão do sinal:").grid(row=0, column=0, sticky=tk.W)
         self.signal_input = ttk.Entry(settings_frame, width=25)
         self.signal_input.insert(0, "np.sin(2*np.pi*5*x)")
         self.signal_input.grid(row=0, column=1, padx=5, pady=2)
         
-        # Frequência de amostragem
         ttk.Label(settings_frame, text="Freq. amostragem (Hz):").grid(row=1, column=0, sticky=tk.W)
         self.sample_freq = tk.IntVar(value=1000)
         ttk.Entry(settings_frame, textvariable=self.sample_freq, width=10).grid(row=1, column=1, padx=5, pady=2)
         
-        # Botão de plotar
+
         plot_btn = ttk.Button(
             control_frame, 
             text="Calcular FFT", 
@@ -354,12 +345,10 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         plot_btn.pack(side=tk.RIGHT, padx=5)
         
-        # Gráfico
         self.fig, (self.ax1, self.ax2) = plt.subplots(2, 1, figsize=(8, 6))
         self.canvas = FigureCanvasTkAgg(self.fig, master=main_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
         
-        # Plot inicial
         self.plot_fft()
     
     def plot_fft(self):
@@ -368,7 +357,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
             fs = self.sample_freq.get()
             t = np.linspace(0, 1, fs, endpoint=False)
             
-            # Namespace seguro para eval
             namespace = {
                 'np': np,
                 'sin': np.sin,
@@ -379,15 +367,15 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
                 'x': t
             }
             
-            # Avalia a expressão do sinal
+          
             signal = eval(self.signal_input.get(), namespace)
             
-            # Calcula a FFT
+    
             n = len(signal)
             freq = np.fft.fftfreq(n, 1/fs)[:n//2]
             fft_values = np.abs(fft(signal))[:n//2]
             
-            # Plota o sinal no tempo
+        
             self.ax1.clear()
             self.ax1.plot(t, signal, 'b-')
             self.ax1.set_title("Sinal no Domínio do Tempo")
@@ -395,7 +383,7 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
             self.ax1.set_ylabel("Amplitude")
             self.ax1.grid(True, linestyle='--', alpha=0.6)
             
-            # Plota a FFT
+
             self.ax2.clear()
             self.ax2.stem(freq, fft_values, 'r-', markerfmt=" ", basefmt="-r")
             self.ax2.set_title("Transformada de Fourier (FFT)")
@@ -411,22 +399,19 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
     
     def setup_laplace_transform(self, control_frame, main_frame):
         """Interface para Transformada de Laplace."""
-        # Controles adicionais
+
         settings_frame = ttk.Frame(control_frame)
         settings_frame.pack(side=tk.LEFT, padx=10)
         
-        # Entrada da função
         ttk.Label(settings_frame, text="Função no tempo:").grid(row=0, column=0, sticky=tk.W)
         self.laplace_input = ttk.Entry(settings_frame, width=25)
         self.laplace_input.insert(0, "np.exp(-2*t)*np.sin(2*np.pi*3*t)")
         self.laplace_input.grid(row=0, column=1, padx=5, pady=2)
         
-        # Limites de tempo
         ttk.Label(settings_frame, text="Tempo máximo (s):").grid(row=1, column=0, sticky=tk.W)
         self.time_max = tk.DoubleVar(value=5.0)
         ttk.Entry(settings_frame, textvariable=self.time_max, width=10).grid(row=1, column=1, padx=5, pady=2)
         
-        # Botão de plotar
         plot_btn = ttk.Button(
             control_frame, 
             text="Calcular Transformada", 
@@ -434,12 +419,10 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         )
         plot_btn.pack(side=tk.RIGHT, padx=5)
         
-        # Gráfico
         self.fig, (self.ax1, self.ax2) = plt.subplots(2, 1, figsize=(8, 6))
         self.canvas = FigureCanvasTkAgg(self.fig, master=main_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
         
-        # Plot inicial
         self.plot_laplace()
     
     def plot_laplace(self):
@@ -448,7 +431,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
             t_max = self.time_max.get()
             t = np.linspace(0, t_max, 1000)
             
-            # Namespace seguro para eval
             namespace = {
                 'np': np,
                 'sin': np.sin,
@@ -458,10 +440,8 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
                 't': t
             }
             
-            # Avalia a expressão da função
             time_func = eval(self.laplace_input.get(), namespace)
             
-            # Simulação numérica da Transformada de Laplace
             sigma = np.linspace(0.1, 10, 100)
             omega = np.linspace(-20, 20, 100)
             s = sigma[:, None] + 1j * omega
@@ -471,7 +451,7 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
                 for s_i in s.ravel()
             ]).reshape(s.shape)
             
-            # Plota a função no tempo
+        
             self.ax1.clear()
             self.ax1.plot(t, time_func, 'g-')
             self.ax1.set_title("Função no Domínio do Tempo")
@@ -479,7 +459,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
             self.ax1.set_ylabel("Amplitude")
             self.ax1.grid(True, linestyle='--', alpha=0.6)
             
-            # Plota a magnitude da Transformada de Laplace
             self.ax2.clear()
             magnitude = np.abs(laplace)
             X, Y = np.meshgrid(omega, sigma)
@@ -497,11 +476,11 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
     
     def setup_z_transform(self, control_frame, main_frame):
         """Interface para Transformada Z."""
-        # Controles adicionais
+
         settings_frame = ttk.Frame(control_frame)
         settings_frame.pack(side=tk.LEFT, padx=10)
         
-        # Entrada dos coeficientes
+
         ttk.Label(settings_frame, text="Coeficientes do numerador:").grid(row=0, column=0, sticky=tk.W)
         self.num_input = ttk.Entry(settings_frame, width=25)
         self.num_input.insert(0, "[1, -0.5]")
@@ -512,35 +491,33 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
         self.den_input.insert(0, "[1, -0.8]")
         self.den_input.grid(row=1, column=1, padx=5, pady=2)
         
-        # Botão de plotar
+
         plot_btn = ttk.Button(
             control_frame, 
             text="Plotar Polos e Zeros", 
             command=self.plot_z_transform
         )
         plot_btn.pack(side=tk.RIGHT, padx=5)
-        
-        # Gráfico
+
         self.fig, self.ax = plt.subplots(figsize=(6, 6))
         self.canvas = FigureCanvasTkAgg(self.fig, master=main_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-        
-        # Plot inicial
+
         self.plot_z_transform()
     
     def plot_z_transform(self):
         """Plot da Transformada Z (Diagrama de Polos e Zeros)."""
         try:
-            # Obtém os coeficientes
+           
             num = eval(self.num_input.get())
             den = eval(self.den_input.get())
             
-            # Calcula polos e zeros
+         
             zeros, poles, _ = tf2zpk(num, den)
             
             self.ax.clear()
             
-            # Plota os zeros
+   
             self.ax.scatter(
                 np.real(zeros), 
                 np.imag(zeros), 
@@ -550,7 +527,7 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
                 label="Zeros"
             )
             
-            # Plota os polos
+        
             self.ax.scatter(
                 np.real(poles), 
                 np.imag(poles), 
@@ -560,7 +537,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
                 label="Polos"
             )
             
-            # Círculo unitário
             unit_circle = plt.Circle(
                 (0, 0), 
                 1, 
@@ -571,7 +547,6 @@ Universidade Tecnológica Federal do Paraná - Campus Toledo
             )
             self.ax.add_patch(unit_circle)
             
-            # Configurações do gráfico
             self.ax.set_title("Diagrama de Polos e Zeros (Transformada Z)")
             self.ax.set_xlabel("Parte Real")
             self.ax.set_ylabel("Parte Imaginária")
